@@ -23,6 +23,7 @@ describe('readNight on runs/2026-10-28.jsonl', () => {
     expect(row('fixtures/refresh')).toMatchObject({
       runs: 4,
       retries: 3,
+      fails: 0,
       lastStatus: 'ok',
       lastError: null,
       firstAt: '2026-10-29T01:30:00+01:00',
@@ -32,6 +33,7 @@ describe('readNight on runs/2026-10-28.jsonl', () => {
 
   it('keeps the last error of a failed job', () => {
     expect(row('notes/backup')).toMatchObject({ lastStatus: 'fail', lastError: 'quota exceeded', owner: 'lane-07' });
+    expect(row('notes/backup')?.fails).toBe(1);
   });
 
   it('keeps a row whose owner is null', () => {
